@@ -45,9 +45,7 @@ func _update_camera(weight: float) -> void:
 	var focus := _target.global_position + Vector3(0.0, 1.0, 0.0)
 	var elevation := camera_pitch
 	var offset := (
-		Vector3(
-			sinf(camera_yaw) * cosf(elevation), sinf(elevation), cosf(camera_yaw) * cosf(elevation)
-		)
+		Vector3(sin(camera_yaw) * cos(elevation), sin(elevation), cos(camera_yaw) * cos(elevation))
 		* distance
 	)
 	var desired_position := focus + offset

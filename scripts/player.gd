@@ -124,7 +124,6 @@ func _build_character() -> void:
 		var element_id := _match_element(part, model_data.get("elements", []))
 		if element_id.is_empty() or not _element_owners.has(element_id):
 			continue
-		var element: Dictionary = elements_by_id[element_id]
 		var owner_id: String = _element_owners[element_id]
 		var owner_origin: Vector3 = _group_origins.get(owner_id, Vector3.ZERO)
 		var mesh := _mesh_for_part(part, owner_origin)
