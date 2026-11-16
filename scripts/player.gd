@@ -265,12 +265,12 @@ func _read_obj_parts() -> Array:
 							"normal": normal
 						}
 					)
-				if face.size() >= 3:
-					for triangle_index in range(1, face.size() - 1):
-					for corner in [face[0], face[triangle_index], face[triangle_index + 1]]:
-						active["vertices"].append(corner["position"])
-						active["uvs"].append(corner["uv"])
-						active["normals"].append(corner["normal"])
+					if face.size() >= 3:
+						for triangle_index in range(1, face.size() - 1):
+							for corner in [face[0], face[triangle_index], face[triangle_index + 1]]:
+								active["vertices"].append(corner["position"])
+								active["uvs"].append(corner["uv"])
+								active["normals"].append(corner["normal"])
 	if not active.is_empty():
 		_finish_obj_part(active, active_vertex_start, positions, result)
 	return result
