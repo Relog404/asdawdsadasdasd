@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/follow_camera.gd" id="2_camera"]
-[ext_resource type="Script" path="res://scripts/hud.gd" id="3_hud"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMaterial"]
 sky_top_color = Color(0.31, 0.48, 0.53, 1)
@@ -77,6 +76,3 @@ current = true
 fov = 47.0
 near = 0.05
 far = 500.0
-
-[node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("3_hud")

@@ -159,6 +159,7 @@ func _build_outliner_item(
 		var origin := _vector_from_array(group.get("origin", [0, 0, 0]))
 		var group_node := Node3D.new()
 		group_node.name = str(group.get("name", "Bone"))
+		group_node.rotation_order = Node3D.EULER_ORDER_XYZ
 		group_node.set_meta("group_uuid", item_id)
 		var local_origin := origin + MODEL_CENTER if is_root else origin - parent_origin
 		group_node.position = local_origin / PIXELS_PER_UNIT
