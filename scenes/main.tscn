@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="Script" path="res://scripts/follow_camera.gd" id="2_camera"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="3_hud"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMaterial"]
+sky_top_color = Color(0.31, 0.48, 0.53, 1)
+sky_horizon_color = Color(0.72, 0.82, 0.79, 1)
+sky_curve = 0.22
+ground_bottom_color = Color(0.21, 0.29, 0.25, 1)
+ground_horizon_color = Color(0.68, 0.76, 0.71, 1)
+
+[sub_resource type="Sky" id="Sky"]
+sky_material = SubResource("SkyMaterial")
+
+[sub_resource type="Environment" id="Environment"]
+background_mode = 2
+sky = SubResource("Sky")
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.67, 0.77, 0.73, 1)
+fog_density = 0.0015
+ambient_light_source = 3
+ambient_light_color = Color(0.66, 0.74, 0.69, 1)
+ambient_light_energy = 0.65
+
+[sub_resource type="PlaneMesh" id="FieldMesh"]
+size = Vector2(400, 400)
+
+[sub_resource type="StandardMaterial3D" id="FieldMaterial"]
+albedo_color = Color(0.31, 0.43, 0.30, 1)
+roughness = 1.0
+
+[sub_resource type="BoxShape3D" id="GroundShapeResource"]
+size = Vector3(400, 0.2, 400)
+
+[sub_resource type="CapsuleShape3D" id="PlayerShape"]
+radius = 0.3
+height = 2.76
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.785398, -0.610865, 0)
+light_color = Color(1, 0.94, 0.81, 1)
+light_energy = 1.15
+shadow_enabled = true
+shadow_bias = 0.04
+
+[node name="Field" type="MeshInstance3D" parent="."]
+mesh = SubResource("FieldMesh")
+material_override = SubResource("FieldMaterial")
+
+[node name="GroundBody" type="StaticBody3D" parent="."]
+position = Vector3(0, -0.1, 0)
+
+[node name="GroundShape" type="CollisionShape3D" parent="GroundBody"]
+shape = SubResource("GroundShapeResource")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+position = Vector3(0, 1.38, 0)
+shape = SubResource("PlayerShape")
+
+[node name="CameraRig" type="Node3D" parent="."]
+script = ExtResource("2_camera")
+target_path = NodePath("../Player")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+current = true
+fov = 47.0
+near = 0.05
+far = 500.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("3_hud")

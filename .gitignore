@@ -1,0 +1,7 @@
+# Godot editor/import cache
+.godot/
+.import/
+
+# Platform/editor noise
+.DS_Store
+Thumbs.db
